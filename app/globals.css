@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --font-manrope: "Segoe UI Variable", "Segoe UI", sans-serif;
+  --font-space-grotesk: "Trebuchet MS", "Segoe UI", sans-serif;
+}
+
+body {
+  @apply min-h-screen bg-surface-950 text-slate-100 antialiased;
+  background-image:
+    radial-gradient(circle at top, rgba(34, 197, 94, 0.18), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(14, 165, 233, 0.14), transparent 22%),
+    linear-gradient(135deg, #050816 0%, #0a1021 50%, #10182d 100%);
+}
+
+a {
+  @apply transition-colors duration-200;
+}
+
+::selection {
+  background: rgba(74, 222, 128, 0.35);
+  color: #f8fafc;
+}
+
+.panel {
+  @apply rounded-3xl border border-slate-800/80 bg-surface-900/75 backdrop-blur-xl shadow-glow;
+}
+
+.input {
+  @apply w-full rounded-2xl border border-slate-700 bg-surface-800/80 px-4 py-3 text-sm text-slate-100 outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20;
+}
+
+.label {
+  @apply mb-2 block text-sm font-medium text-slate-300;
+}
+
+.button-primary {
+  @apply inline-flex items-center justify-center rounded-2xl bg-brand-500 px-4 py-3 text-sm font-semibold text-slate-950 transition hover:bg-brand-600 disabled:cursor-not-allowed disabled:opacity-70;
+}
+
+.button-secondary {
+  @apply inline-flex items-center justify-center rounded-2xl border border-slate-700 bg-surface-800 px-4 py-3 text-sm font-semibold text-slate-100 transition hover:border-slate-500 hover:bg-surface-700;
+}
