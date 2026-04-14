@@ -7,6 +7,7 @@ A production-ready expense tracker built with Next.js App Router, Tailwind CSS, 
 - Email/password signup and login with Supabase Auth
 - Protected dashboard with persistent sessions
 - Expense CRUD with Row Level Security
+- Auto-created user profiles synced from Supabase Auth
 - Monthly spending chart
 - Responsive dark UI with reusable components
 
@@ -65,6 +66,9 @@ supabase/
 
 ## Production Notes
 
+- `public.profiles` stores user account details such as email, full name, avatar, and preferred currency.
+- `public.expenses` stores each user's transactions with timestamps and category indexing.
+- A database trigger syncs newly created `auth.users` records into `public.profiles`.
 - RLS policies ensure users can only access their own expenses.
 - Middleware keeps auth sessions fresh and protects private routes.
 - Public keys are read from environment variables, and signup uses the server-side service role key to create confirmed users without requiring email confirmation.
