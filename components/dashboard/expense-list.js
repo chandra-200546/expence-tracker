@@ -67,18 +67,21 @@ export function ExpenseList({ expenses }) {
           {expenses.map((expense) => (
             <article
               key={expense.id}
-              className="rounded-3xl border border-slate-800 bg-slate-950/40 p-5 transition hover:border-slate-700"
+              className="group rounded-[28px] border border-white/8 bg-gradient-to-r from-slate-950/60 to-white/[0.03] p-5 transition duration-300 hover:border-white/16 hover:shadow-[0_22px_70px_rgba(15,23,42,0.35)]"
             >
               <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
                 <div>
                   <div className="flex flex-wrap items-center gap-3">
-                    <span className="rounded-full border border-brand-500/20 bg-brand-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-brand-400">
+                    <span className="rounded-full border border-brand-500/20 bg-brand-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-brand-300">
                       {expense.category}
                     </span>
                     <span className="text-sm text-slate-500">{formatExpenseDate(expense.created_at)}</span>
                   </div>
-                  <h3 className="mt-4 text-2xl font-bold text-white">{formatCurrency(expense.amount)}</h3>
-                  <p className="mt-2 text-sm text-slate-400">
+                  <h3 className="mt-4 font-[var(--font-space-grotesk)] text-2xl font-bold text-white sm:text-3xl">
+                    {formatCurrency(expense.amount)}
+                  </h3>
+                  <p className="mt-1 text-xs uppercase tracking-[0.25em] text-slate-500">Transaction note</p>
+                  <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-400">
                     {expense.note || "No note added for this expense."}
                   </p>
                 </div>

@@ -5,7 +5,8 @@ import { formatCurrency } from "@/lib/utils";
 
 export function ExpenseChart({ data }) {
   return (
-    <section className="panel p-6">
+    <section className="panel relative overflow-hidden p-6">
+      <div className="absolute right-0 top-0 h-32 w-32 rounded-full bg-brand-500/10 blur-3xl" />
       <div className="mb-6">
         <p className="text-sm uppercase tracking-[0.25em] text-slate-500">Monthly Overview</p>
         <h2 className="mt-2 font-[var(--font-space-grotesk)] text-2xl font-bold text-white">
@@ -16,7 +17,7 @@ export function ExpenseChart({ data }) {
         </p>
       </div>
 
-      <div className="h-80">
+      <div className="relative h-80 rounded-[24px] border border-white/6 bg-slate-950/35 p-3">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={data}>
             <defs>
@@ -35,9 +36,9 @@ export function ExpenseChart({ data }) {
             />
             <Tooltip
               contentStyle={{
-                backgroundColor: "#0F172A",
-                border: "1px solid rgba(74, 222, 128, 0.2)",
-                borderRadius: "16px",
+                backgroundColor: "rgba(15, 23, 42, 0.92)",
+                border: "1px solid rgba(255, 255, 255, 0.08)",
+                borderRadius: "18px",
                 color: "#F8FAFC"
               }}
               formatter={(value) => formatCurrency(value)}
