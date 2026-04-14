@@ -1,9 +1,7 @@
-import Link from "next/link";
-import { Plus } from "lucide-react";
 import { ExpenseChart } from "@/components/dashboard/expense-chart";
+import { DashboardActions } from "@/components/dashboard/dashboard-actions";
 import { ExpenseList } from "@/components/dashboard/expense-list";
 import { ExpenseSummary } from "@/components/dashboard/expense-summary";
-import { LogoutButton } from "@/components/dashboard/logout-button";
 import { AppShell } from "@/components/shared/app-shell";
 import { getUserOrRedirect } from "@/lib/auth";
 import { buildMonthlyExpenseData } from "@/lib/utils";
@@ -23,15 +21,7 @@ export default async function DashboardPage() {
     <AppShell
       title="Expense dashboard"
       description="Monitor total spending, review transactions, and act fast on any category."
-      action={
-        <div className="flex flex-col gap-3 sm:flex-row">
-          <Link href="/add-expense" className="button-primary">
-            <Plus className="mr-2 h-4 w-4" />
-            Add Expense
-          </Link>
-          <LogoutButton />
-        </div>
-      }
+      action={<DashboardActions />}
     >
       <ExpenseSummary expenses={expenses} totalExpenses={totalExpenses} userEmail={user.email} />
       <div className="grid gap-6 xl:grid-cols-[1.2fr_0.8fr]">
