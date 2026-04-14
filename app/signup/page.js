@@ -1,19 +1,11 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import { AuthForm } from "@/components/auth/auth-form";
-import { getOptionalUser } from "@/lib/auth";
 
 export const metadata = {
   title: "Sign Up | Spendly"
 };
 
 export default async function SignupPage() {
-  const user = await getOptionalUser();
-
-  if (user) {
-    redirect("/dashboard");
-  }
-
   return (
     <main className="min-h-screen px-4 py-10 sm:px-6 lg:px-8">
       <div className="mx-auto grid min-h-[calc(100vh-5rem)] max-w-6xl gap-8 lg:grid-cols-[0.95fr_1.05fr]">

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useTransition } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { AlertCircle, LoaderCircle } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
@@ -9,7 +9,7 @@ import { createClient } from "@/lib/supabase/client";
 export function AuthForm({ mode }) {
   const isLogin = mode === "login";
   const router = useRouter();
-  const [isPending, startTransition] = useTransition();
+  const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [formData, setFormData] = useState({
@@ -21,8 +21,9 @@ export function AuthForm({ mode }) {
     event.preventDefault();
     setError("");
     setMessage("");
+    setIsPending(true);
 
-    startTransition(async () => {
+    (async () => {
       const supabase = createClient();
       let data;
       let authError;
@@ -51,6 +52,7 @@ export function AuthForm({ mode }) {
 
         if (!signupResponse.ok) {
           setError(signupResult.error || "Unable to create your account.");
+          setIsPending(false);
           return;
         }
 
@@ -65,11 +67,14 @@ export function AuthForm({ mode }) {
 
       if (authError) {
         setError(authError.message);
+        setIsPending(false);
         return;
       }
 
-      router.push("/dashboard");
-      router.refresh();
+      router.replace("/dashboard");
+    })().catch(() => {
+      setError("Something went wrong. Please try again.");
+      setIsPending(false);
     });
   };
 
