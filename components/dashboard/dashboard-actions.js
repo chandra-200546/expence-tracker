@@ -1,24 +1,27 @@
 "use client";
 
-import { useTransition } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { LoaderCircle, LogOut, Plus } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
 export function DashboardActions() {
   const router = useRouter();
-  const [isPending, startTransition] = useTransition();
+  const [isPending, setIsPending] = useState(false);
 
   const handleAddExpense = () => {
     router.push("/add-expense");
   };
 
   const handleLogout = () => {
-    startTransition(async () => {
+    setIsPending(true);
+
+    (async () => {
       const supabase = createClient();
-      await supabase.auth.signOut();
-      router.push("/login");
-      router.refresh();
+      await supabase.auth.signOut({ scope: "local" });
+      router.replace("/login");
+    })().catch(() => {
+      setIsPending(false);
     });
   };
 
