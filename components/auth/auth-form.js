@@ -24,25 +24,47 @@ export function AuthForm({ mode }) {
 
     startTransition(async () => {
       const supabase = createClient();
-      const action = isLogin
-        ? supabase.auth.signInWithPassword({
+      let data;
+      let authError;
+
+      if (isLogin) {
+        const response = await supabase.auth.signInWithPassword({
+          email: formData.email,
+          password: formData.password
+        });
+
+        data = response.data;
+        authError = response.error;
+      } else {
+        const signupResponse = await fetch("/api/auth/signup", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
             email: formData.email,
             password: formData.password
           })
-        : supabase.auth.signUp({
-            email: formData.email,
-            password: formData.password
-          });
+        });
 
-      const { data, error: authError } = await action;
+        const signupResult = await signupResponse.json();
+
+        if (!signupResponse.ok) {
+          setError(signupResult.error || "Unable to create your account.");
+          return;
+        }
+
+        const response = await supabase.auth.signInWithPassword({
+          email: formData.email,
+          password: formData.password
+        });
+
+        data = response.data;
+        authError = response.error;
+      }
 
       if (authError) {
         setError(authError.message);
-        return;
-      }
-
-      if (!isLogin && !data.session) {
-        setMessage("Account created. Check your email to confirm your signup before logging in.");
         return;
       }
 

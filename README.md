@@ -49,6 +49,7 @@ A production-ready expense tracker built with Next.js App Router, Tailwind CSS, 
 ```env
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
 ```
 
 ## Folder Structure
@@ -66,4 +67,4 @@ supabase/
 
 - RLS policies ensure users can only access their own expenses.
 - Middleware keeps auth sessions fresh and protects private routes.
-- All Supabase keys are read from environment variables.
+- Public keys are read from environment variables, and signup uses the server-side service role key to create confirmed users without requiring email confirmation.
